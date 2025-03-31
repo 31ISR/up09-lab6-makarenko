@@ -1,0 +1,320 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.note-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff8e1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.note-container a {
+    color: #6d4c41;
+    font-weight: bold;
+}
+
+.note-container button {
+    background-color: #8d5524;
+    color: white;
+}
+
+.note-container button:hover {
+    background-color: #6d4c41;
+}
+
+.note-item {
+    border-bottom: 1px solid #d7ccc8;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-content {
+    flex-grow: 1;
+    font-family: 'Georgia', serif;
+    color: #5d4037;
+}
+
+.note-actions {
+    display: flex;
+    align-items: center;
+}
+
+.note-container textarea {
+    background-color: #fff;
+    border: 1px solid #8d5524;
+}
+
+.note-list {
+    margin-top: 15px;
+}
+
+.todo-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #e8f5e9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.todo-container a {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.todo-container button {
+    background-color: #d81b60;
+    color: white;
+}
+
+.todo-container button:hover {
+    background-color: #b71c1c;
+}
+
+.todo-item {
+    border: 1px solid #c8e6c9;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.todo-content {
+    flex-grow: 1;
+    font-family: 'Verdana', sans-serif;
+    color: #1b5e20;
+}
+
+.todo-actions {
+    display: flex;
+    align-items: center;
+}
+
+.status.done {
+    color: #2e7d32;
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.urgent.urgent-on {
+    color: #d81b60;
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.todo-details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.todo-container input[type="text"] {
+    border: 1px solid #2e7d32;
+}
+
+.todo-list {
+    margin-top: 15px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    line-height: 1;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination .prev,
+.pagination .next {
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+.pagination a[rel="prev"]:before,
+.pagination a[rel="next"]:before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    margin-right: 2px;
+}
+
+.pagination a[rel="prev"]:before {
+    transform: rotate(135deg); 
+}
+
+.pagination a[rel="next"]:before {
+    transform: rotate(-45deg); 
+}
+
+.note-container .pagination a {
+    color: #6d4c41;
+}
+
+.note-container .pagination .current {
+    background-color: #8d5524;
+    border-color: #8d5524;
+}
+
+.note-container .pagination a[rel="prev"]:before,
+.note-container .pagination a[rel="next"]:before {
+    border-color: #6d4c41;
+}
+
+.todo-container .pagination a {
+    color: #2e7d32;
+}
+
+.todo-container .pagination .current {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.todo-container .pagination a[rel="prev"]:before,
+.todo-container .pagination a[rel="next"]:before {
+    border-color: #2e7d32;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button, a {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .note-container {
+        padding: 15px;
+    }
+
+    .note-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .note-actions {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .note-container textarea {
+        max-width: 100%;
+    }
+
+    .note-list .pagination {
+        justify-content: center;
+    }
+
+    .todo-container {
+        padding: 15px;
+    }
+
+    .todo-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .todo-actions {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .todo-container input[type="text"],
+    .todo-container textarea {
+        max-width: 100%;
+    }
+
+    .todo-list .pagination {
+        justify-content: center;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .pagination .prev,
+    .pagination .next {
+        padding: 3px 5px;
+    }
+
+    .pagination a[rel="prev"]:before,
+    .pagination a[rel="next"]:before {
+        width: 6px;
+        height: 6px;
+        border-width: 0 1px 1px 0;
+    }
+}

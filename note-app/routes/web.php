@@ -6,8 +6,9 @@ use App\Http\Controllers\GoodbyeController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TodoController;
 
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+//Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
-Route::get('/goodbye', [GoodbyeController::class, 'goodbye'])->name('goodbye');
+//Route::get('/goodbye', [GoodbyeController::class, 'goodbye'])->name('goodbye');
 
 Route::resource('note', NoteController::class);
+Route::resource('todo', TodoController::class);
