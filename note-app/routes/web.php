@@ -11,4 +11,5 @@ use App\Http\Controllers\TodoController;
 //Route::get('/goodbye', [GoodbyeController::class, 'goodbye'])->name('goodbye');
 
 Route::resource('note', NoteController::class);
+
 Route::resource('todo', TodoController::class);
