@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    protected $fillable = ['name', 'done', 'urgent', ];
+    use HasFactory;
+
+    protected $fillable = ['name', 'done', 'urgent', 'date_completed', 'user_id'];
 }

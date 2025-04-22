@@ -1,7 +1,7 @@
 <x-layout>
     <div class="note-container">
         <h1>Create new note</h1>
-        <form action="{{ route('note.store') }}" method="POST">
+        <form method="POST" action="{{ route('note.store') }}" >
             @csrf
             <textarea name="note" rows="10" placeholder="Enter your note here">{{ old('note') }}</textarea>
             <div>

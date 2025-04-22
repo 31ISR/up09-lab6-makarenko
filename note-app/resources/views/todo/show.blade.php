@@ -14,7 +14,12 @@
         <div class="todo-details">
             <p>Done: <span class="status {{ $todo->done ? 'done' : '' }}">{{ $todo->done ? 'Yes' : 'No' }}</span></p>
             <p>Urgent: <span class="urgent {{ $todo->urgent ? 'urgent-on' : '' }}">{{ $todo->urgent ? 'Yes' : 'No' }}</span></p>
-            <p>Completed: {{ $todo->dateCompleted ?? 'Not completed' }}</p>
+            <p>Completed: {{ $todo->date_completed ?? 'Not completed' }}</p>
         </div>
+        @session('message')
+            <div class="success-message">
+                {{ session('message') }}
+            </div>
+        @endsession
     </div>
 </x-layout>
