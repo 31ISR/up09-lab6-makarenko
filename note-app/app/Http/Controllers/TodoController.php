@@ -57,8 +57,8 @@ class TodoController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'done' => ['nullable', 'boolean'],
-            'urgent' => ['nullable', 'boolean'],
+            'done' => ['sometimes', 'boolean'],
+            'urgent' => ['sometimes', 'boolean'],
         ]);
 
         $data['done'] = $data['done'] ?? false;

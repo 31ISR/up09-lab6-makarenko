@@ -22,10 +22,10 @@
                 <button type="submit">Submit</button>
             </div>
         </form>
-        @session('message')
+        <!-- @session('message')
             <div class="success-message">
                 {{ session('message') }}
             </div>
-        @endsession
+        @endsession -->
     </div>
 </x-layout>
