@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="todo-container">
         <h1>Create new todo</h1>
         <form action="{{ route('todo.store') }}" method="POST">
@@ -28,4 +28,4 @@
             </div>
         @endsession -->
     </div>
-</x-layout>
+</x-app-layout>

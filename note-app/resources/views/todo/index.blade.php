@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="todo-container">
         <a href="{{ route('todo.create') }}">New Todo</a>
         <div class="todo-list">
@@ -35,4 +35,4 @@
             </div>
         </div>
     </div>
-</x-layout>
+</x-app-layout>

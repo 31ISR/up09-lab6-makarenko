@@ -1,15 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\GoodbyeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TodoController;
+use Illuminate\Support\Facades\Route;
 
-//Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::redirect('/', '/note')->name('dashboard');
 
-//Route::get('/goodbye', [GoodbyeController::class, 'goodbye'])->name('goodbye');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('note', NoteController::class);
+    Route::resource('todo', TodoController::class);
+});
 
-Route::resource('note', NoteController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::resource('todo', TodoController::class);
+require __DIR__.'/auth.php';

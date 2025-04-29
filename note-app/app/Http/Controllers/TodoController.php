@@ -7,77 +7,100 @@ use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
+    /**
+     * Показать список задач пользователя.
+     */
     public function index()
     {
-        $todos = Todo::query()->orderBy('created_at', 'desc')->paginate();
+        $todos = Todo::query()
+            ->where('user_id', request()->user()->id) 
+            ->orderBy('created_at', 'desc')           
+            ->paginate(10);                           
         return view('todo.index', ['todos' => $todos]);
     }
 
+    /**
+     * Показать форму для создания новой задачи.
+     */
     public function create()
     {
         return view('todo.create');
     }
 
+    /**
+     * Сохранить новую задачу.
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'done' => ['nullable', 'boolean'],
-            'urgent' => ['nullable', 'boolean'],
+            'done' => ['required', 'boolean'],
+            'urgent' => ['required', 'boolean'],
         ]);
 
-        $data['done'] = $data['done'] ?? false;
-        $data['urgent'] = $data['urgent'] ?? false;
-        $data['user_id'] = 1;
+        $data['user_id'] = $request->user()->id;
         $data['date_completed'] = $data['done'] ? now() : null;
 
         $todo = Todo::create($data);
 
-        return to_route('todo.show', $todo)->with('message', 'Task was created');
+        return redirect()->route('todo.show', $todo);
     }
 
+    /**
+     * Показать конкретную задачу.
+     */
     public function show(Todo $todo)
     {
+        if ($todo->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на просмотр этой задачи');
+        }
         return view('todo.show', ['todo' => $todo]);
     }
 
+    /**
+     * Показать форму для редактирования задачи.
+     */
     public function edit(Todo $todo)
     {
-        if (!$todo->exists) {
-            abort(404, 'Задача не найдена');
+        if ($todo->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на редактирование этой задачи');
         }
         return view('todo.edit', ['todo' => $todo]);
     }
 
+    /**
+     * Обновить задачу.
+     */
     public function update(Request $request, Todo $todo)
     {
-        if (!$todo->exists) {
-            abort(404, 'Задача не найдена');
+        if ($todo->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на редактирование этой задачи');
         }
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'done' => ['sometimes', 'boolean'],
-            'urgent' => ['sometimes', 'boolean'],
+            'done' => ['required', 'boolean'],
+            'urgent' => ['required', 'boolean'],
         ]);
 
-        $data['done'] = $data['done'] ?? false;
-        $data['urgent'] = $data['urgent'] ?? false;
         $data['date_completed'] = $data['done'] ? now() : null;
 
         $todo->update($data);
 
-        return to_route('todo.show', $todo)->with('message', 'Task was updated');
+        return redirect()->route('todo.show', $todo);
     }
 
+    /**
+     * Удалить задачу.
+     */
     public function destroy(Todo $todo)
     {
-        if (!$todo->exists) {
-            abort(404, 'Задача не найдена');
+        if ($todo->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на удаление этой задачи');
         }
 
         $todo->delete();
 
-        return to_route('todo.index')->with('message', 'Task was deleted');
+        return redirect()->route('todo.index');
     }
 }

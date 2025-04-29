@@ -8,17 +8,19 @@ use Illuminate\Http\Request;
 class NoteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Показать список заметок пользователя.
      */
     public function index()
     {
-        $notes = Note::query()->orderBy('created_at', 'desc')->paginate();
-        
+        $notes = Note::query()
+            ->where('user_id', request()->user()->id) 
+            ->orderBy('created_at', 'desc')           
+            ->paginate(10);                          
         return view('note.index', ['notes' => $notes]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Показать форму для создания новой заметки.
      */
     public function create()
     {
@@ -26,65 +28,74 @@ class NoteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохранить новую заметку.
      */
     public function store(Request $request)
     {
         $data = $request->validate([
-            'note' => ['required', 'string']
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
         ]);
-    
-        $data['user_id'] = 1; // Пока ставим 1, позже заменим на настоящего пользователя
+
+        $data['user_id'] = $request->user()->id;
+
         $note = Note::create($data);
-    
-        return to_route('note.show', $note)->with('message', 'Note was created');
+
+        return redirect()->route('note.show', $note);
     }
 
     /**
-     * Display the specified resource.
+     * Показать конкретную заметку.
      */
     public function show(Note $note)
     {
+        if ($note->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на просмотр этой заметки');
+        }
         return view('note.show', ['note' => $note]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Показать форму для редактирования заметки.
      */
     public function edit(Note $note)
     {
-        return view('note.edit', compact('note'));
+        if ($note->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на редактирование этой заметки');
+        }
+        return view('note.edit', ['note' => $note]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновить заметку.
      */
     public function update(Request $request, Note $note)
     {
-        //if ($note->user_id !== request()->user()->id) {
-        if (!$note->exists) {
-            abort(403);
+        if ($note->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на редактирование этой заметки');
         }
+
         $data = $request->validate([
-            'note' => ['required', 'string']
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
         ]);
-    
-        $note->update($data); 
-    
-        return to_route('note.show', $note)->with('message', 'Note was updated');
+
+        $note->update($data);
+
+        return redirect()->route('note.show', $note);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить заметку.
      */
     public function destroy(Note $note)
     {
-        //if ($note->user_id !== request()->user()->id) {
-        if (!$note->exists) {
-            abort(403);
+        if ($note->user_id !== request()->user()->id) {
+            abort(403, 'У вас нет прав на удаление этой заметки');
         }
+
         $note->delete();
-    
-        return to_route('note.index')->with('message', 'Note was deleted');
+
+        return redirect()->route('note.index');
     }
 }

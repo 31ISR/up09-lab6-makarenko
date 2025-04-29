@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="note-container">
         <div>
             <h1>Note: {{ $note->created_at }}</h1>
@@ -15,4 +15,4 @@
             {{ $note->note }}
         </div>
     </div>
-</x-layout>
+</x-app-layout>

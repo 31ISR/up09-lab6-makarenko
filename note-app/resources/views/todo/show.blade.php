@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="todo-container">
         <div>
             <h1>Task: {{ $todo->name }}</h1>
@@ -22,4 +22,4 @@
             </div>
         @endsession -->
     </div>
-</x-layout>
+</x-app-layout>
