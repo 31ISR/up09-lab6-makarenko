@@ -75,8 +75,7 @@ class NoteController extends Controller
         }
 
         $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'note' => ['required', 'string', 'max:255'],
         ]);
 
         $note->update($data);
