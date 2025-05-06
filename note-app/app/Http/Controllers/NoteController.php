@@ -33,8 +33,7 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'note' => ['required', 'string', 'max:255'],
         ]);
 
         $data['user_id'] = $request->user()->id;
